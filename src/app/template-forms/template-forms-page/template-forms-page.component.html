@@ -1,0 +1,195 @@
+<form
+  class="form"
+  #form="ngForm"
+  (ngSubmit)="onSubmit(form, $event)"
+>
+  <div class="form-field">
+    <label>
+      First name
+      <input
+        [(ngModel)]="userInfo.firstName"
+        [ngModelOptions]="{ name: 'first-name' }"
+        required
+        #firstName="ngModel"
+        minlength="2"
+        type="text"
+        id="name"
+        placeholder="Enter your name"
+      />
+      <div class="input-error" *ngIf="firstName.dirty && firstName.hasError('required')">this field is required</div>
+      <div class="input-error" *ngIf="firstName.dirty && firstName.hasError('minlength')">min length is 2</div>
+    </label>
+  </div>
+  <div class="form-field">
+    <label>
+      Last name
+      <input
+        [(ngModel)]="userInfo.lastName"
+        required
+        minlength="2"
+        name="last-name"
+        type="text"
+        id="last-name"
+        placeholder="Enter your last name"
+        #lastName="ngModel"
+      />
+    </label>
+    <div class="input-error" *ngIf="lastName.dirty && lastName.hasError('required')">this field is required</div>
+    <div class="input-error" *ngIf="lastName.dirty && lastName.hasError('minlength')">min length is
+      {{ lastName.getError('minlength').requiredLength }}</div>
+  </div>
+  <div class="form-field">
+    <label>
+      Nickname
+      <input
+        [(ngModel)]="userInfo.nickname"
+        name="nick-name"
+        required
+        minlength="3"
+        pattern="^[\w.]+$"
+        type="text"
+        id="nick-name"
+        placeholder="Come up with a nick name"
+        #nickName="ngModel"
+        [appBanWords]="['test', 'test1', 'test2']"
+      />
+    </label>
+    <div class="input-error" *ngIf="nickName.dirty && nickName.hasError('required')">this field is required</div>
+    <div class="input-error" *ngIf="nickName.dirty && nickName.hasError('minlength')">min length is 2</div>
+    <div class="input-error" *ngIf="nickName.dirty && nickName.hasError('pattern')">restricted symbols</div>
+    <div class="input-error" *ngIf="nickName.dirty && nickName.hasError('appBanWords')">forbidden word:
+      {{ nickName.getError('appBanWords').banWords }}
+    </div>
+  </div>
+  <div class="form-field">
+    <label>
+      Provide your email
+      <input
+        [(ngModel)]="userInfo.email"
+        email
+        name="email"
+        type="text"
+        id="email"
+        placeholder="Provide your email"
+        #email="ngModel"
+      />
+    </label>
+    <div class="input-error" *ngIf="email.dirty && email.hasError('email')">invalid email</div>
+  </div>
+  <div class="form-field">
+    <label>
+      Year of birth
+      <select
+        required
+        [(ngModel)]="userInfo.yearOfBirth"
+        name="year-of-birth"
+        #yearOfBirth="ngModel"
+      >
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+      </select>
+    </label>
+    <div class="input-error" *ngIf="yearOfBirth.dirty && yearOfBirth.hasError('required')">select year</div>
+  </div>
+  <div class="form-field">
+    <label>
+      Passport Number
+      <input
+        [(ngModel)]="userInfo.passport"
+        [required]="isAdult"
+        pattern="^[0-9]{4} [0-9]{6}"
+        name="passport"
+        type="text"
+        id="passport"
+        placeholder="Provide your passport"
+        #passport="ngModel"
+      />
+    </label>
+    <div class="input-error" *ngIf="passport.dirty && passport.hasError('required')">this field is required</div>
+    <div class="input-error" *ngIf="passport.dirty && passport.hasError('pattern')">4 symbols + 6 symbols</div>
+  </div>
+  <fieldset ngModelGroup="address">
+    <legend>Address</legend>
+    <div class="form-field">
+      <label>
+        Full Address
+        <input
+          [(ngModel)]="userInfo.fullAddress"
+          required
+          name="full-address"
+          type="text"
+          id="full-address"
+          placeholder="Provide your full address"
+          #fullAddress="ngModel"
+        />
+      </label>
+      <div class="input-error" *ngIf="fullAddress.dirty && fullAddress.hasError('required')">this field is required</div>
+    </div>
+    <div class="form-field">
+      <label>
+        City
+        <input
+          [(ngModel)]="userInfo.city"
+          required
+          name="city"
+          type="text"
+          id="city"
+          placeholder="Provide your city"
+        />
+      </label>
+    </div>
+    <div class="form-field">
+      <label>
+        Post Code
+        <input
+          [(ngModel)]="userInfo.postCode"
+          required
+          name="post-code"
+          type="text"
+          id="post-code"
+          placeholder="Provide your post code"
+        />
+      </label>
+    </div>
+  </fieldset>
+  <fieldset ngModelGroup="password" appPasswordShouldMatch>
+    <legend>User password</legend>
+    <div class="form-field">
+      <label>
+        Password
+        <input
+          [(ngModel)]="userInfo.password"
+          required
+          minlength="3"
+          name="password"
+          type="password"
+          id="password"
+          placeholder="your password"
+          #password="ngModel"
+        />
+      </label>
+      <div class="input-error" *ngIf="password.dirty && password.hasError('required')">this field is required</div>
+      <div class="input-error" *ngIf="password.dirty && password.hasError('minlength')">
+        min lingth is {{ password.getError('minlength').requiredLength }}</div>
+    </div>
+    <div class="form-field">
+      <label>
+        Confirm password
+        <input
+          [(ngModel)]="userInfo.confirmPassword"
+          required
+          name="confirmPassword"
+          type="password"
+          id="confirmPassword"
+          placeholder="Confirm password"
+          #confirmPassword="ngModel"
+          [ngModelOptions]="{updateOn: 'blur'}"
+        />
+      </label>
+    </div>
+  </fieldset>
+  <div class="input-error"
+    *ngIf="confirmPassword.dirty && confirmPassword.hasError('passportMissmatch')">
+    Password doesn't match
+  </div>
+  <button [disabled]="form.invalid" type="submit">Save</button>
+</form>

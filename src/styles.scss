@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+.ng-valid.ng-dirty:not([ngModelGroup]):not(form) {
+    border: 1px solid #4caf50;
+}
+
+.ng-invalid.ng-dirty:not([ngModelGroup="address"]):not(form) {
+    border: 1px solid #ff0000;
+}
+
+@keyframes error-message-animation {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.input-error {
+    color: red;
+    font-size: 12px;
+    padding: 2px 13px;
+    animation: error-message-animation 1s;
+}
