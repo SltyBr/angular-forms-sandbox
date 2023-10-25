@@ -7,7 +7,7 @@
     border: 1px solid #ff0000;
 }
 
-@keyframes error-message-animation {
+@keyframes input-message-animation {
     from {
         opacity: 0;
         transform: translateY(-6px);
@@ -18,9 +18,18 @@
     }
 }
 
-.input-error {
-    color: red;
+@mixin input-message() {
     font-size: 12px;
     padding: 2px 13px;
-    animation: error-message-animation 1s;
+    animation: input-message-animation 300ms;
+}
+
+.input-error {
+    color: red;
+    @include input-message();
+}
+
+.input-info {
+    color: yellowgreen;
+    @include input-message();
 }

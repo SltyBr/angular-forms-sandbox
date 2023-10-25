@@ -17,11 +17,17 @@ export class BanWordsDirective implements Validator {
   @Input()
   set appBanWords(value: string | string[]) {
     this.bannedWords = Array.isArray(value) ? value : [value]
+    this.onChange();
   }
   private bannedWords: string[] = [];
+  private onChange: () => void = () => {}
 
   validate(control: AbstractControl<string>): ValidationErrors | null {
     const banWord = this.bannedWords.find(word => word.toLowerCase() === control.value?.toLowerCase());
     return banWord ? {appBanWords: {banWords: banWord}} : null
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+      this.onChange = fn;
   }
 }

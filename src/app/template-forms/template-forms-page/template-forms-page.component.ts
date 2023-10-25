@@ -1,19 +1,20 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { UserInfo } from 'src/app/core/user-info';
 import { BanWordsDirective } from 'src/app/template-forms/validators/ban-words.directive';
 import { PasswordShouldMatchDirective } from 'src/app/template-forms/validators/password-should-match.directive';
+import { UniqueNameDirective } from 'src/app/template-forms/validators/unique-name.directive';
 
 @Component({
   selector: 'app-template-forms-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, BanWordsDirective, PasswordShouldMatchDirective],
+  imports: [CommonModule, FormsModule, BanWordsDirective, PasswordShouldMatchDirective, UniqueNameDirective],
   templateUrl: './template-forms-page.component.html',
   styleUrls: ['./template-forms-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TemplateFormsPageComponent {
+export class TemplateFormsPageComponent implements AfterViewInit{
   public userInfo: UserInfo = {
     firstName: 'Pavel',
     lastName: '',
@@ -28,6 +29,17 @@ export class TemplateFormsPageComponent {
     confirmPassword: ''
   }
 
+  @ViewChild(NgForm)
+  formDir!: NgForm;
+
+  private initialFormValues: unknown;
+
+  ngAfterViewInit(): void {
+    window.queueMicrotask(() => {
+      this.initialFormValues = this.formDir.value;
+    })
+  }
+
   public get isAdult() {
     const currentYear = new Date().getFullYear();
     return currentYear - this.userInfo.yearOfBirth >= 18;
@@ -38,7 +50,13 @@ export class TemplateFormsPageComponent {
     return Array(now - (now - 40)).fill('').map((_, i) => now - i);
   }
 
-  public onSubmit(form: NgForm, event: Event): void {
-    console.log(form.value, event);
+  public onSubmit(event: Event): void {
+    console.log(this.formDir.value, event);
+    this.initialFormValues = this.formDir.value;
+  }
+
+  public onReset(event: Event): void {
+    event.preventDefault();
+    this.formDir.resetForm(this.initialFormValues)
   }
 }
