@@ -1,0 +1,213 @@
+<form
+  class="form"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  (reset)="onReset($event)"
+>
+  <div class="form-field">
+    <label>
+      First name
+      <input
+        type="text"
+        id="name"
+        placeholder="Enter your name"
+        formControlName="firstName"
+      />
+      <div *ngIf="
+        form.controls.firstName.dirty &&
+        form.controls.firstName.hasError('required')" class="input-error">This field is required</div>
+      <div *ngIf="
+        form.controls.firstName.dirty &&
+        form.controls.firstName.hasError('banWords')" class="input-error">Forbidden word - {{
+          form.controls.firstName.getError('banWords').bannedWord
+        }}</div>
+      <div *ngIf="form.controls.firstName.hasError('minlength')" class="input-error">
+        Min length is {{ form.controls.firstName.getError('minlength').requiredLength }}
+      </div>
+    </label>
+  </div>
+  <div class="form-field">
+    <label>
+      Last name
+      <input
+        name="last-name"
+        type="text"
+        id="last-name"
+        placeholder="Enter your last name"
+        formControlName="lastName"
+      />
+    </label>
+  </div>
+  <div class="form-field">
+    <label>
+      Nickname
+      <input
+        name="nick-name"
+        type="text"
+        id="nick-name"
+        placeholder="Come up with a nick name"
+        formControlName="nickName"
+      />
+    </label>
+    <ng-container *ngIf="form.controls.nickName as nickName">
+      <div class="input-info" *ngIf="nickName.dirty && nickName.pending">
+        Checking if nickname is unique
+      </div>
+      <div class="input-error" *ngIf="nickName.hasError('uniqueName') && nickName.getError('uniqueName').taken">
+        This nickname is taken
+      </div>
+    </ng-container>
+
+  </div>
+  <div class="form-field">
+    <label>
+      Provide your email
+      <input
+        name="email"
+        type="text"
+        id="email"
+        placeholder="Provide your email"
+        formControlName="email"
+      />
+    </label>
+  </div>
+  <div class="form-field">
+    <label>
+      Year of birth
+      <select
+        name="year-of-birth"
+        formControlName="yearOfBirth"
+      >
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+      </select>
+    </label>
+    <div class="input-error" *ngIf="form.controls.yearOfBirth.hasError('required')">This field is required</div>
+  </div>
+  <div class="form-field">
+    <label>
+      Passport Number
+      <input
+        name="passport"
+        type="text"
+        id="passport"
+        placeholder="Provide your passport"
+        formControlName="passport"
+      />
+    </label>
+  </div>
+  <fieldset formGroupName="address">
+    <legend>Address</legend>
+    <div class="form-field">
+      <label>
+        Full Address
+        <input
+          name="full-address"
+          type="text"
+          id="full-address"
+          placeholder="Provide your full address"
+          formControlName="fullAddress"
+        />
+      </label>
+    </div>
+    <div class="form-field">
+      <label>
+        City
+        <input
+          name="city"
+          type="text"
+          id="city"
+          placeholder="Provide your city"
+          formControlName="city"
+        />
+      </label>
+    </div>
+    <div class="form-field">
+      <label>
+        Post Code
+        <input
+          name="post-code"
+          type="text"
+          id="post-code"
+          placeholder="Provide your post code"
+          formControlName="postCode"
+        />
+      </label>
+    </div>
+  </fieldset>
+  <fieldset formGroupName="password">
+    <legend>User password</legend>
+    <div class="form-field">
+      <label>
+        Password
+        <input
+          name="password"
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="your password"
+        />
+      </label>
+    </div>
+    <div class="form-field">
+      <label>
+        Confirm password
+        <input
+          name="confirmPassword"
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          placeholder="Confirm password"
+        />
+      </label>
+    </div>
+    <div class="input-error" *ngIf="form.controls.password.dirty && form.controls.password.hasError('passwordShouldMatch')">
+      Password should match
+    </div>
+  </fieldset>
+  <fieldset formArrayName="phones">
+    <legend>Phones</legend>
+    <div class="control-buttons">
+      <button (click)="addPhone()" type="button">+</button>
+    </div>
+    <div class="form-field" [formGroupName]="i" *ngFor="let phone of form.controls.phones.controls; let i = index">
+      <select
+        name="phone-label"
+        formControlName="label"
+      >
+      <option *ngFor="let phone of phoneLabels" [value]="phone">{{ phone }}</option>
+    </select>
+      <label>
+        phone number
+        <input
+          name="phone"
+          type="text"
+          placeholder="enter phone"
+          id="phone-{{i}}"
+          formControlName="phone"
+        />
+        <button (click)="removePhone(i)" type="button">-</button>
+      </label>
+    </div>
+  </fieldset>
+  <fieldset formGroupName="skills">
+    <legend>User Skills</legend>
+    <ng-container *ngIf="userSkills$ | async as skills; else loading">
+      <div
+        *ngFor="let skill of skills"
+        class="skill-container">
+        <label>
+          <input type="checkbox" [id]="skill" [formControlName]="skill">
+          {{ skill | titlecase }}
+        </label>
+      </div>
+    </ng-container>
+
+  </fieldset>
+  <button type="submit" [disabled]="form.invalid && form.pending">Save</button>
+  <button type="reset" [disabled]="form.pristine">Reset</button>
+</form>
+
+<ng-template #loading>
+  <p>Skills loading...</p>
+</ng-template>
+
