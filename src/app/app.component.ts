@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { NgSwitch, NgSwitchDefault, NgSwitchCase } from '@angular/common';
 import { TemplateFormsPageComponent } from 'src/app/template-forms/template-forms-page/template-forms-page.component';
 import { HeaderComponent } from 'src/app/header/header.component';
@@ -15,7 +15,8 @@ import { HeaderComponent } from 'src/app/header/header.component';
     NgSwitchCase,
     RouterOutlet,
     TemplateFormsPageComponent,
-    HeaderComponent
+    HeaderComponent,
+    RouterModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
