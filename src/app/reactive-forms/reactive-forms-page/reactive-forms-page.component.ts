@@ -52,7 +52,7 @@ export class ReactiveFormsPageComponent implements OnInit, OnDestroy {
 
   public form = this._fb.group({
     firstName: this._fb.nonNullable.control('Pavel', [Validators.required, Validators.minLength(3), banWords(['test', 'test1'])]),
-    lastName: ['Popov', [Validators.required, Validators.minLength(2)]],
+    lastName: [{value: 'Popov', disabled: true}, [Validators.required, Validators.minLength(2)]],
     nickName: ['Slty',
       {
         validators: [Validators.required, Validators.minLength(2), Validators.pattern(/^[\w.]+$/)],
@@ -132,6 +132,7 @@ export class ReactiveFormsPageComponent implements OnInit, OnDestroy {
 
   public onSubmit(): void {
     console.log(this.form.value);
+    console.log(this.form.getRawValue())
     this.initialFormValue =  this.form.value;
     this.formRef.resetForm();
   }

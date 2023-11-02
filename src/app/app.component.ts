@@ -3,6 +3,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { NgSwitch, NgSwitchDefault, NgSwitchCase } from '@angular/common';
 import { TemplateFormsPageComponent } from 'src/app/template-forms/template-forms-page/template-forms-page.component';
 import { HeaderComponent } from 'src/app/header/header.component';
+import { RatingPickerComponent } from 'src/app/rating-picker-page/rating-picker/rating-picker.component';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ import { HeaderComponent } from 'src/app/header/header.component';
     RouterOutlet,
     TemplateFormsPageComponent,
     HeaderComponent,
-    RouterModule
+    RouterModule,
+    RatingPickerComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
