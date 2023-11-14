@@ -7,11 +7,12 @@ import { Subscription, bufferCount, filter, startWith, tap } from 'rxjs';
 import { banWords } from 'src/app/reactive-forms/validators/ban-words.validator';
 import { passwordShouldMatch } from 'src/app/reactive-forms/validators/password-should-match';
 import { UniqueNameValidator } from 'src/app/reactive-forms/validators/unique-name.validator';
+import { AddressFormComponent } from 'src/app/reactive-forms/components/address-form/address-form.component';
 
 @Component({
   selector: 'app-reactive-forms-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AddressFormComponent],
   templateUrl: './reactive-forms-page.component.html',
   styleUrls: ['./reactive-forms-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -62,11 +63,6 @@ export class ReactiveFormsPageComponent implements OnInit, OnDestroy {
     email: ['', [Validators.required, Validators.email]],
     yearOfBirth: this._fb.nonNullable.control(this.getYears()[this.getYears().length - 1]),
     passport: ['', [Validators.pattern(/^[0-9]{4} [0-9]{6}/)]],
-    address: this._fb.nonNullable.group({
-      fullAddress: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      postCode: [0, [Validators.required]],
-    }),
     phones: this._fb.array([
       this._initPhoneFormGroup()
     ]),

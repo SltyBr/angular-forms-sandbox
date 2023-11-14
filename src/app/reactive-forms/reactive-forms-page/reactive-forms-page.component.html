@@ -95,45 +95,7 @@
       />
     </label>
   </div>
-  <fieldset formGroupName="address">
-    <legend>Address</legend>
-    <div class="form-field">
-      <label>
-        Full Address
-        <input
-          name="full-address"
-          type="text"
-          id="full-address"
-          placeholder="Provide your full address"
-          formControlName="fullAddress"
-        />
-      </label>
-    </div>
-    <div class="form-field">
-      <label>
-        City
-        <input
-          name="city"
-          type="text"
-          id="city"
-          placeholder="Provide your city"
-          formControlName="city"
-        />
-      </label>
-    </div>
-    <div class="form-field">
-      <label>
-        Post Code
-        <input
-          name="post-code"
-          type="text"
-          id="post-code"
-          placeholder="Provide your post code"
-          formControlName="postCode"
-        />
-      </label>
-    </div>
-  </fieldset>
+  <app-address-form controlKey="address"></app-address-form>
   <fieldset formGroupName="password">
     <legend>User password</legend>
     <div class="form-field">
