@@ -38,7 +38,6 @@ export class EditableContentDirective implements ControlValueAccessor {
   private sanitizer = inject(DomSanitizer);
 
   writeValue(obj: any): void {
-    console.log('Method writeValue has been implemented', obj);
     this.renderer.setProperty(
       this.elementRef.nativeElement,
       'innerHTML',
@@ -46,15 +45,12 @@ export class EditableContentDirective implements ControlValueAccessor {
     )
   }
   registerOnChange(fn: any): void {
-    console.log('Method registerOnChange has been implemented', fn);
     this.onChange = fn;
   }
   registerOnTouched(fn: any): void {
-    console.log('Method registerOnTouched has been implemented', fn);
     this.onTouch = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    console.log('Method setDisabledState has been implemented', isDisabled);
     this.renderer.setProperty(
       this.elementRef.nativeElement,
       'contentEditable',

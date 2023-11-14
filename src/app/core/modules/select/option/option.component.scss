@@ -1,0 +1,48 @@
+:host {
+    display: flex;
+    align-items: center;
+    height: 34px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 14px;
+    border: transparent 1px solid;
+    &:hover {
+        background-color: azure;
+    }
+    &.selected {
+        &::before {
+            content: '✅';
+            animation: checked-option 320ms ease-out;
+            transform-origin: bottom left;
+        }
+        .option-content {
+            transform: translateX(7px);
+        }
+    }
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        border: 1px dashed rgb(165, 165, 165)
+    }
+}
+
+.option-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 320ms ease-out;
+}
+
+.disabled-reason:not(:empty) {
+    font-size: 12px;
+    background-color: rgb(165, 165, 165);
+    padding: 1px 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+@keyframes checked-option {
+    from { opacity: 0.8; transform: scale(0.9, 0.9); }
+    to { opacity: 1; transform: scale(1, 1); }
+}

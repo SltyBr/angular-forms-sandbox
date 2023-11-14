@@ -7,6 +7,7 @@
         rows="2"
         formControlName="reviewText"
         class="review-text"></paper-textarea> -->
+    <app-rating-picker-emoji [value]="'bad'" formControlName="reviewRating"></app-rating-picker-emoji>
     <div class="review-textarea" contenteditable formControlName="reviewText">
     </div>
     <button>Save</button>

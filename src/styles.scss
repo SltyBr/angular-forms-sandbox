@@ -1,3 +1,9 @@
+@import '@angular/cdk/overlay-prebuilt.css';
+
+* {
+    box-sizing: border-box;
+}
+
 /* You can add global styles to this file, and also import other style files */
 .ng-valid.ng-dirty:not([formArrayName]):not([formArrayName]):not([ngModelGroup]):not(form) {
     border: 1px solid #4caf50;

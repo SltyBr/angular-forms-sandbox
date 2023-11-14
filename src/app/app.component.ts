@@ -4,6 +4,7 @@ import { NgSwitch, NgSwitchDefault, NgSwitchCase } from '@angular/common';
 import { TemplateFormsPageComponent } from 'src/app/template-forms/template-forms-page/template-forms-page.component';
 import { HeaderComponent } from 'src/app/header/header.component';
 import { RatingPickerComponent } from 'src/app/rating-picker-page/rating-picker/rating-picker.component';
+import { CustomSelectComponent } from 'src/app/custom-select-page/custom-select/custom-select.component';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ import { RatingPickerComponent } from 'src/app/rating-picker-page/rating-picker/
     TemplateFormsPageComponent,
     HeaderComponent,
     RouterModule,
-    RatingPickerComponent
+    RatingPickerComponent,
+    CustomSelectComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
