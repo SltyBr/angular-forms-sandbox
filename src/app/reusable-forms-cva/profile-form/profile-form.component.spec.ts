@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OptionComponent } from './option.component';
+import { ProfileFormComponent } from './profile-form.component';
 
-describe('OptionComponent', () => {
-  let component: OptionComponent;
-  let fixture: ComponentFixture<OptionComponent>;
+describe('ProfileFormComponent', () => {
+  let component: ProfileFormComponent;
+  let fixture: ComponentFixture<ProfileFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OptionComponent ]
+      imports: [ ProfileFormComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OptionComponent);
+    fixture = TestBed.createComponent(ProfileFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

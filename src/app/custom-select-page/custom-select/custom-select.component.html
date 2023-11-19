@@ -1,3 +1,14 @@
-<app-select [displayWith]="displayWithFn" (selectionChanged)="onSelectionChanged($event)" [value]="selectValue" [label]="'Pickup the user'">
-    <app-option *ngFor="let user of users" [value]="user">{{ user.name }}</app-option>
+<app-select
+    label="Pickup the user"
+    multiple
+    [formControl]="selectValue"
+    [displayWith]="displayWithFn"
+    [compareWith]="compareWithFn"
+    [searchable]="true"
+    (searchChanged)="onSearchChanged($event)"
+    (closed)="onSearchChanged('')">
+    <app-option *ngFor="let user of filteredUsers"
+        [disabled]="user.disabled"
+        disabledReason="user blocked"
+        [value]="user">{{ user.name }}</app-option>
 </app-select>
