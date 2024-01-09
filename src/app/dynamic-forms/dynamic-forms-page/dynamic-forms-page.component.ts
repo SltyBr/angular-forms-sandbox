@@ -5,11 +5,13 @@ import { HttpClient } from '@angular/common/http';
 import { DynamicControl, DynamicFormConfig, ValidatorKeys } from 'src/app/dynamic-forms/dynamic-forms-page/dynamic-forms.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { banWords } from 'src/app/reactive-forms/validators/ban-words.validator';
+import { DynamicControlResolver } from 'src/app/dynamic-forms/dynamic-control-resolver.service';
+import { ControlInjectorPipe } from 'src/app/dynamic-forms/control-injector.pipe';
 
 @Component({
   selector: 'app-dynamic-forms',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ControlInjectorPipe],
   templateUrl: './dynamic-forms-page.component.html',
   styleUrls: ['./dynamic-forms-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -20,6 +22,7 @@ export class DynamicFormsPageComponent implements OnInit {
   protected formLoadingTrigger = new Subject<'user' | 'company'>();
   protected formConfig$!: Observable<DynamicFormConfig>;
   private http = inject(HttpClient);
+  protected controlResolver = inject(DynamicControlResolver);
 
   ngOnInit() {
     this.formConfig$ = this.formLoadingTrigger.pipe(
