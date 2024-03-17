@@ -1,5 +1,7 @@
 import { ValidatorFn, Validators } from '@angular/forms';
 
+export type controlTypes = 'input' | 'select' | 'checkbox'
+
 export interface DynamicOptions {
     label: string,
     value: string
@@ -8,7 +10,7 @@ type CustomValidators = { banWords: ValidatorFn }
 export type ValidatorKeys = keyof Omit<typeof Validators & CustomValidators, 'prototype' | 'compose' | 'composeAsync'>;
 
 export interface DynamicControl<T = string> {
-    controlType: 'input' | 'select';
+    controlType: controlTypes;
     type?: string,
     label: string,
     value: T | null,

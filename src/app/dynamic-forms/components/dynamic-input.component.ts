@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [CommonModule, ReactiveFormsModule],
   template: `
     <ng-container [formGroup]="formGroup">
+      <label [for]="control.controlKey">{{ control.config.label }}</label>
       <input [formControlName]="control.controlKey" [id]="control.controlKey" [value]="control.config.value" [type]="control.config.type">
     </ng-container>
   `,

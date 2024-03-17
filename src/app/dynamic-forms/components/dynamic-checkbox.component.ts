@@ -4,19 +4,19 @@ import { BaseDynamicControl } from 'src/app/dynamic-forms/base-dynamic-control';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-dynamic-select',
+  selector: 'app-dynamic-checkbox',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   template: `
     <ng-container [formGroup]="formGroup">
+      <input type="checkbox" [formControlName]="control.controlKey" [checked]="control.config.value" [id]="control.controlKey" >
       <label [for]="control.controlKey">{{ control.config.label }}</label>
-      <select [formControlName]="control.controlKey" [id]="control.controlKey" [value]="control.config.value">
-        <option *ngFor="let o of control.config.options" [value]="o.value">{{o.label}}</option>
-      </select>
     </ng-container>
   `,
   styles: [
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DynamicSelectComponent extends BaseDynamicControl {}
+export class DynamicCheckboxComponent extends BaseDynamicControl{
+
+}

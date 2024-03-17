@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { Observable, Subject, switchMap, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { DynamicControl, DynamicFormConfig, ValidatorKeys } from 'src/app/dynamic-forms/dynamic-forms-page/dynamic-forms.model';
+import { DynamicControl, DynamicFormConfig } from 'src/app/dynamic-forms/dynamic-forms-page/dynamic-forms.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { banWords } from 'src/app/reactive-forms/validators/ban-words.validator';
 import { DynamicControlResolver } from 'src/app/dynamic-forms/dynamic-control-resolver.service';
@@ -62,6 +62,9 @@ export class DynamicFormsPageComponent implements OnInit {
       }
       if (validatorKey === 'banWords' && Array.isArray(validatorValue)) {
         return banWords(validatorValue);
+      }
+      if (validatorKey === 'requiredTrue') {
+        return Validators.requiredTrue
       }
       return Validators.nullValidator
     })
