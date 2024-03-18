@@ -1,12 +1,14 @@
-import { Directive, inject } from '@angular/core';
-import { ControlContainer, FormGroup } from '@angular/forms';
+import { Directive, HostBinding, StaticProvider, inject } from '@angular/core';
+import { ControlContainer } from '@angular/forms';
 import { CONTROL_DATA } from 'src/app/dynamic-forms/control-data.token';
+
+export const dynamicControlProvider: StaticProvider = {
+  provide: ControlContainer,
+  useFactory: () => inject(ControlContainer, { skipSelf: true }),
+};
 
 @Directive()
 export class BaseDynamicControl {
-    control = inject(CONTROL_DATA);
-    protected parentFormGroup = inject(ControlContainer);
-    get formGroup() {
-        return this.parentFormGroup.control as FormGroup;
-    }
+  @HostBinding('class') hostClass = 'form-field';
+  control = inject(CONTROL_DATA);
 }

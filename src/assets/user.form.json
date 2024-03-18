@@ -31,6 +31,30 @@
                 { "label": "Guest", "value": "guest"}
             ]
         },
+        "socialProfiles": {
+            "controlType": "group",
+            "label": "Links to social profiles",
+            "controls": {
+                "youtube": {
+                    "controlType": "input",
+                    "label": "YouTube",
+                    "value": null,
+                    "type": "text"
+                },
+                "twitter": {
+                    "controlType": "input",
+                    "label": "twitter",
+                    "value": null,
+                    "type": "text"
+                },
+                "vk": {
+                    "controlType": "input",
+                    "label": "vk",
+                    "value": null,
+                    "type": "text"
+                }
+            }
+        },
         "terms": {
             "controlType": "checkbox",
             "label": "Terms and Conditions were accepted",

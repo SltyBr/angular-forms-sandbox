@@ -35,11 +35,25 @@ export class DynamicFormsPageComponent implements OnInit {
 
   private buildForm(controls: DynamicFormConfig['controls']) {
     this.form = new FormGroup({});
-    Object.keys(controls).forEach(key => {
-      const validators = this.resolveValidators(controls[key]);
-      this.form.addControl(key, new FormControl(controls[key].value, validators));
-    });
+    Object.keys(controls).forEach(key => this.buildControls(key, controls[key], this.form));
     console.log(this.form.value)
+  }
+
+  private buildControls(controlKey: string, config: DynamicControl, formGroup: FormGroup) {
+    if (config.controlType === 'group') {
+      this.buildGroup(controlKey, config.controls, formGroup);
+      return;
+    }
+    const validators = this.resolveValidators(config);
+    formGroup.addControl(controlKey, new FormControl(config.value, validators));
+  }
+
+  private buildGroup(controlKey: string, controls: DynamicControl['controls'], parentFormGroup: FormGroup) {
+    if (!controls) return;
+
+    const nestedFormGroup = new FormGroup({});
+    Object.keys(controls).forEach(key => this.buildControls(key, controls[key], nestedFormGroup));
+    parentFormGroup.addControl(controlKey, nestedFormGroup)
   }
 
   onSubmit() {

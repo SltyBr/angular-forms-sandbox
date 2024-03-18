@@ -1,6 +1,6 @@
 import { ValidatorFn, Validators } from '@angular/forms';
 
-export type controlTypes = 'input' | 'select' | 'checkbox'
+export type controlTypes = 'input' | 'select' | 'checkbox' | 'group'
 
 export interface DynamicOptions {
     label: string,
@@ -15,6 +15,7 @@ export interface DynamicControl<T = string> {
     label: string,
     value: T | null,
     options?: DynamicOptions[],
+    controls?: DynamicFormConfig['controls'],
     validators: {
         [key in ValidatorKeys]?: unknown;
     }

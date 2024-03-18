@@ -1,19 +1,18 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BaseDynamicControl } from 'src/app/dynamic-forms/base-dynamic-control';
+import { BaseDynamicControl, dynamicControlProvider } from 'src/app/dynamic-forms/base-dynamic-control';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dynamic-select',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
+  viewProviders: [dynamicControlProvider],
   template: `
-    <ng-container [formGroup]="formGroup">
-      <label [for]="control.controlKey">{{ control.config.label }}</label>
-      <select [formControlName]="control.controlKey" [id]="control.controlKey" [value]="control.config.value">
-        <option *ngFor="let o of control.config.options" [value]="o.value">{{o.label}}</option>
-      </select>
-    </ng-container>
+    <label [for]="control.controlKey">{{ control.config.label }}</label>
+    <select [formControlName]="control.controlKey" [id]="control.controlKey" [value]="control.config.value">
+      <option *ngFor="let o of control.config.options" [value]="o.value">{{o.label}}</option>
+    </select>
   `,
   styles: [
   ],
