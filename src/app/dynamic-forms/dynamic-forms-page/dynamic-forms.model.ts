@@ -15,6 +15,7 @@ export interface DynamicControl<T = string> {
     label: string,
     value: T | null,
     options?: DynamicOptions[],
+    order: number,
     controls?: DynamicFormConfig['controls'],
     validators: {
         [key in ValidatorKeys]?: unknown;
