@@ -13,17 +13,6 @@
         placeholder="Enter your name"
         formControlName="firstName"
       />
-      <div *ngIf="
-        form.controls.firstName.dirty &&
-        form.controls.firstName.hasError('required')" class="input-error">This field is required</div>
-      <div *ngIf="
-        form.controls.firstName.dirty &&
-        form.controls.firstName.hasError('banWords')" class="input-error">Forbidden word - {{
-          form.controls.firstName.getError('banWords').bannedWord
-        }}</div>
-      <div *ngIf="form.controls.firstName.hasError('minlength')" class="input-error">
-        Min length is {{ form.controls.firstName.getError('minlength').requiredLength }}
-      </div>
     </label>
   </div>
   <div class="form-field">
@@ -50,9 +39,6 @@
       />
     </label>
     <ng-container *ngIf="form.controls.nickName as nickName">
-      <div class="input-info" *ngIf="nickName.dirty && nickName.pending">
-        Checking if nickname is unique
-      </div>
       <div class="input-error" *ngIf="nickName.hasError('uniqueName') && nickName.getError('uniqueName').taken">
         This nickname is taken
       </div>
@@ -81,7 +67,6 @@
         <option *ngFor="let year of years" [value]="year">{{ year }}</option>
       </select>
     </label>
-    <div class="input-error" *ngIf="form.controls.yearOfBirth.hasError('required')">This field is required</div>
   </div>
   <div class="form-field">
     <label>
@@ -121,9 +106,6 @@
           placeholder="Confirm password"
         />
       </label>
-    </div>
-    <div class="input-error" *ngIf="form.controls.password.dirty && form.controls.password.hasError('passwordShouldMatch')">
-      Password should match
     </div>
   </fieldset>
   <fieldset formArrayName="phones">

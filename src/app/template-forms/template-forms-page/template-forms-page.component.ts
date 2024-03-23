@@ -1,20 +1,33 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserInfo } from 'src/app/core/user-info';
 import { BanWordsDirective } from 'src/app/template-forms/validators/ban-words.directive';
 import { PasswordShouldMatchDirective } from 'src/app/template-forms/validators/password-should-match.directive';
 import { UniqueNameDirective } from 'src/app/template-forms/validators/unique-name.directive';
+import { DynamicValidatorMessage } from 'src/app/core/dynamic-validator-message.directive';
 
 @Component({
   selector: 'app-template-forms-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, BanWordsDirective, PasswordShouldMatchDirective, UniqueNameDirective],
+  imports: [
+    CommonModule,
+    FormsModule,
+    BanWordsDirective,
+    PasswordShouldMatchDirective,
+    UniqueNameDirective,
+    DynamicValidatorMessage
+  ],
   templateUrl: './template-forms-page.component.html',
   styleUrls: ['./template-forms-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TemplateFormsPageComponent implements AfterViewInit{
+export class TemplateFormsPageComponent implements AfterViewInit {
   public userInfo: UserInfo = {
     firstName: 'Pavel',
     lastName: '',
@@ -26,8 +39,8 @@ export class TemplateFormsPageComponent implements AfterViewInit{
     city: '',
     postCode: 0,
     password: '',
-    confirmPassword: ''
-  }
+    confirmPassword: '',
+  };
 
   @ViewChild(NgForm)
   formDir!: NgForm;
@@ -37,7 +50,7 @@ export class TemplateFormsPageComponent implements AfterViewInit{
   ngAfterViewInit(): void {
     window.queueMicrotask(() => {
       this.initialFormValues = this.formDir.value;
-    })
+    });
   }
 
   public get isAdult() {
@@ -47,16 +60,18 @@ export class TemplateFormsPageComponent implements AfterViewInit{
 
   public get years(): number[] {
     const now = new Date().getUTCFullYear();
-    return Array(now - (now - 40)).fill('').map((_, i) => now - i);
+    return Array(now - (now - 40))
+      .fill('')
+      .map((_, i) => now - i);
   }
 
   public onSubmit(event: Event): void {
-    console.log(this.formDir.value, event);
+    if (this.formDir.invalid) return;
     this.initialFormValues = this.formDir.value;
   }
 
   public onReset(event: Event): void {
     event.preventDefault();
-    this.formDir.resetForm(this.initialFormValues)
+    this.formDir.resetForm(this.initialFormValues);
   }
 }

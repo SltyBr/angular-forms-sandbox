@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, OnDestroy } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -32,7 +32,8 @@ export interface ProfileFormValues {
       useExisting: forwardRef(() => ProfileFormComponent),
       multi: true
     }
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileFormComponent implements ControlValueAccessor, OnDestroy {
   form: FormGroup;
