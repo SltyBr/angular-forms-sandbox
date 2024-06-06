@@ -8,7 +8,13 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "changeDetection": "OnPush"
+          "changeDetection": "OnPush",
+          "standalone": true,
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "standalone": true,
+          "skipTests": true
         },
         "@schematics/angular:application": {
           "strict": true
@@ -32,9 +38,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
+              "src/styles.scss",
+              "@shoelace-style/shoelace/dist/themes/light.css"
+            ]
           },
           "configurations": {
             "production": {

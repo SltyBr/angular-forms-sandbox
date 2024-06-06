@@ -1,0 +1,11 @@
+<p>range-with-input works!</p>
+<div class="controls">
+    <sl-range
+      #elRef
+      (sl-blur)="onBlur($event)"
+      (sl-input)="onChange(valueType($event))"
+      (sl-change)="onChange(valueType($event))"
+      [max]="max"
+    ></sl-range>
+    <sl-input type="number" [value]="elRef.value" (sl-input)="setValue($event)"></sl-input>
+</div>

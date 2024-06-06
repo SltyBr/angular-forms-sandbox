@@ -5,6 +5,8 @@ import { TemplateFormsPageComponent } from 'src/app/template-forms/template-form
 import { HeaderComponent } from 'src/app/header/header.component';
 import { RatingPickerComponent } from 'src/app/rating-picker-page/rating-picker/rating-picker.component';
 import { CustomSelectComponent } from 'src/app/custom-select-page/custom-select/custom-select.component';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SyncControlDirective } from 'src/app/sync-control';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +22,9 @@ import { CustomSelectComponent } from 'src/app/custom-select-page/custom-select/
     HeaderComponent,
     RouterModule,
     RatingPickerComponent,
-    CustomSelectComponent
+    CustomSelectComponent,
+    ReactiveFormsModule,
+    SyncControlDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

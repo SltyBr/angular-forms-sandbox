@@ -1,0 +1,25 @@
+<form [formGroup]="formGroup" style="display: flex">
+    <sl-select formControlName="fontFamily">
+        <sl-option *ngFor="let option of fonts" [value]="option">{{ option }}</sl-option>
+    </sl-select>
+    <sl-input formControlName="fontSize" type="number"></sl-input>
+    <sl-checkbox formControlName="checkbox"></sl-checkbox>
+    <app-native-color-picker></app-native-color-picker>
+</form>
+<!-- <form [formGroup]="formGroup" style="display: flex">
+  <sl-select
+    [value]="formGroup.controls.fontFamily.value"
+    (sl-change)="onSelectChange($event)"
+    (sl-blur)="onTouch()"
+  >
+    <sl-option *ngFor="let option of fonts" [value]="option">{{
+      option
+    }}</sl-option>
+  </sl-select>
+  <sl-input
+    [value]="formGroup.controls.fontSize.value"
+    (sl-change)="onInputChange($event)"
+    (sl-blur)="onTouch()"
+    type="number"
+  ></sl-input>
+</form> -->
