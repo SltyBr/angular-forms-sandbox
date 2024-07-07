@@ -21,7 +21,7 @@ bootstrapApplication(AppComponent, {
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
-      BrowserAnimationsModule
+      BrowserAnimationsModule, BrowserAnimationsModule
     ),
   ],
 }).catch((err) => console.error(err));

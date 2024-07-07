@@ -1,0 +1,24 @@
+:host {
+    --test-style: red;
+}
+
+.header {
+    color: var(--test-style);
+}
+
+.item {
+    --color: 4px;
+    --position: 'row-reverse';
+    --font-size: 20px;
+    --rgb: 100, 100, 100;
+    --opacity: 0.5;
+    color: var(--color);
+    font-size: var(--font-size);
+    & .inner {
+        color: rgb(255, 45, 133);
+        font-size: var(--font-size);
+        width: 100px;
+        height: 100px;
+        background-color: rgba(var(--rgb), var(--opacity));
+    }
+}

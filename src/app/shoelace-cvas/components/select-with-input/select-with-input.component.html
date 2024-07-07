@@ -6,20 +6,16 @@
     <sl-checkbox formControlName="checkbox"></sl-checkbox>
     <app-native-color-picker></app-native-color-picker>
 </form>
-<!-- <form [formGroup]="formGroup" style="display: flex">
+<form style="display: flex">
+  <sl-switch #switch (sl-change)="switch.checked ? selectForm.disable() : selectForm.enable()">Toggle</sl-switch>
   <sl-select
-    [value]="formGroup.controls.fontFamily.value"
     (sl-change)="onSelectChange($event)"
-    (sl-blur)="onTouch()"
+    (sl-blur)="onSelectBlur()"
+    [disabled]="selectForm.controls.select.disabled"
+    #selectRef
   >
-    <sl-option *ngFor="let option of fonts" [value]="option">{{
-      option
+    <sl-option *ngFor="let option of select | keyvalue" [value]="option.value.toString()">{{
+      option.key
     }}</sl-option>
   </sl-select>
-  <sl-input
-    [value]="formGroup.controls.fontSize.value"
-    (sl-change)="onInputChange($event)"
-    (sl-blur)="onTouch()"
-    type="number"
-  ></sl-input>
-</form> -->
+</form>
